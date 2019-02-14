@@ -108,6 +108,17 @@ module "asg" {
   security_groups             = ["${concat(list(module.sg.id), var.security_group_ids)}"]
   user_data                   = "${coalesce(var.user_data, data.template_file.user_data.rendered)}"
 
+  // Autoscaling rules
+  enable_scaling_policies                    = "${var.enable_scaling_policies}"
+  scaling_policy_high_cpu_evaluation_periods = "${var.scaling_policy_high_cpu_evaluation_periods}"
+  scaling_policy_high_cpu_period             = "${var.scaling_policy_high_cpu_period}"
+  scaling_policy_high_cpu_threshold          = "${var.scaling_policy_high_cpu_threshold}"
+  scaling_policy_scaling_out_cooldown        = "${var.scaling_policy_scaling_out_cooldown}"
+  scaling_policy_low_cpu_evaluation_periods  = "${var.scaling_policy_low_cpu_evaluation_periods}"
+  scaling_policy_low_cpu_period              = "${var.scaling_policy_low_cpu_period}"
+  scaling_policy_low_cpu_threshold           = "${var.scaling_policy_low_cpu_threshold}"
+  scaling_policy_scaling_in_cooldown         = "${var.scaling_policy_scaling_in_cooldown}"
+
   ebs_block_device = [{
     device_name           = "/dev/xvdcz"
     volume_size           = "${var.docker_storage_size}"
