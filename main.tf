@@ -61,7 +61,7 @@ data "template_file" "user_data" {
 
   vars {
     additional_user_data_script = "${var.additional_user_data_script}"
-    cluster_name                = "${module.enabled.value == 0 ? "" : aws_ecs_cluster.this.name}"
+    cluster_name                = "${aws_ecs_cluster.this.name}"
     docker_storage_size         = "${var.docker_storage_size}"
     dockerhub_token             = "${var.dockerhub_token}"
     dockerhub_email             = "${var.dockerhub_email}"
