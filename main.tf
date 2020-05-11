@@ -77,7 +77,7 @@ data "aws_vpc" "vpc" {
 ### AWS ECS Cluster
 ###
 resource "aws_ecs_cluster" "this" {
-  count = "${module.enabled.value}"
+  #count = "${module.enabled.value}"
   name = "${module.label.id}"
 
   lifecycle {
