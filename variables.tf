@@ -32,6 +32,7 @@ variable "environment" {
 
 variable "name" {
   description = "Base name for resources"
+  default     = ""
 }
 
 variable "namespace-env" {
@@ -144,6 +145,7 @@ variable "instance_type" {
 
 variable "key_name" {
   description = "SSH key name in your AWS account for AWS instances."
+  default     = ""
 }
 
 variable "min_servers" {
@@ -184,6 +186,7 @@ variable "servers" {
 variable "subnet_id" {
   description = "The AWS Subnet ID in which you want to delpoy your instances"
   type        = "list"
+  default     = []
 }
 
 variable "tagName" {
@@ -198,6 +201,7 @@ variable "user_data" {
 
 variable "vpc_id" {
   description = "The AWS VPC ID which you want to deploy your instances"
+  default     = ""
 }
 
 variable "termination_policies" {
