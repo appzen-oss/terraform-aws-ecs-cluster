@@ -56,7 +56,8 @@ data "aws_ami" "aws_optimized_ecs" {
 data "template_file" "user_data" {
   # TODO: option to pass in
   # Cannot disable due to reference
-  #count     = "${module.enabled.value}"
+  count = "${module.enabled.value}"
+
   template = "${file("${path.module}/templates/user_data.sh")}"
 
   vars {
@@ -77,8 +78,21 @@ data "aws_vpc" "vpc" {
 ### AWS ECS Cluster
 ###
 resource "aws_ecs_cluster" "this" {
-  #count = "${module.enabled.value}"
-  name = "${module.label.id}"
+  count              = "${module.enabled.value}"
+  name               = "${module.label.id}"
+  capacity_providers = []
+
+  setting = [
+    {
+      name  = "containerInsights"
+      value = "${var.container_insights}"
+    },
+  ]
+
+  tags = {
+    environment = "${var.environment}"
+    managedBy   = "terraform"
+  }
 
   lifecycle {
     create_before_destroy = true
@@ -106,7 +120,7 @@ module "asg" {
   instance_type               = "${var.instance_type}"
   key_name                    = "${var.key_name}"
   security_groups             = ["${concat(list(module.sg.id), var.security_group_ids)}"]
-  user_data                   = "${coalesce(var.user_data, data.template_file.user_data.rendered)}"
+  user_data                   = "${coalesce(var.user_data, ${module.enabled.value ? data.template_file.user_data.rendered : ""})}"
 
   // Autoscaling rules
   enable_scaling_policies                    = "${var.enable_scaling_policies}"
