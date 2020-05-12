@@ -120,7 +120,7 @@ module "asg" {
   instance_type               = "${var.instance_type}"
   key_name                    = "${var.key_name}"
   security_groups             = ["${concat(list(module.sg.id), var.security_group_ids)}"]
-  user_data                   = "${coalesce(var.user_data, ${module.enabled.value ? data.template_file.user_data.rendered : ""})}"
+  user_data                   = "${coalesce(var.user_data, module.enabled.value ? data.template_file.user_data.rendered : "")}"
 
   // Autoscaling rules
   enable_scaling_policies                    = "${var.enable_scaling_policies}"
