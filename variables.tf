@@ -5,6 +5,22 @@ variable "attributes" {
   default     = []
 }
 
+variable "capacity_providers" {
+  description = "list of: FARGATE, FARGATE_SPOT, EC2"
+  type        = "list"
+  default     = ["FARGATE","FARGATE_SPOT"]
+}
+
+#variable "cluster_name" {
+#  description = "prefix of ecs cluster name"
+#  default     = ""
+#}
+
+variable "container_insights" {
+  description = "enabled or disabled"
+  default     = "enabled"
+}
+
 variable "delimiter" {
   description = "Delimiter to be used between `name`, `namespaces`, `attributes`, etc."
   default     = "-"
