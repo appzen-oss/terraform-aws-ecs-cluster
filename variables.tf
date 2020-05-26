@@ -5,6 +5,11 @@ variable "attributes" {
   default     = []
 }
 
+variable "container_insights" {
+  description = "ECS cluster insight enabled or disabled"
+  default     = "enabled"
+}
+
 variable "delimiter" {
   description = "Delimiter to be used between `name`, `namespaces`, `attributes`, etc."
   default     = "-"
